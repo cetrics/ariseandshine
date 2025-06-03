@@ -1,0 +1,942 @@
+{% extends "index.html" %} {% block content %}
+
+<style>
+  /* Apply dark overlay ONLY to the first slider item */
+  .home-slider .slider-item:first-child .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    z-index: 1;
+  }
+
+  /* Ensure text sits above the overlay */
+  .home-slider .slider-item:first-child .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Optional: prevent overlays on other slides from affecting layout */
+  .home-slider .slider-item:not(:first-child) .overlay {
+    background-color: transparent;
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .quote i {
+    font-size: 20px;
+    color: #f96d00;
+  }
+
+  .testimony-wrap {
+    margin-bottom: 30px;
+  }
+
+  .text.bg-white {
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<section class="home-slider owl-carousel">
+  <div
+    class="slider-item"
+    style="background-image: url(../static/images/bg_3.png)"
+  >
+    <div class="overlay"></div>
+    <div class="container">
+      <div
+        class="row no-gutters slider-text align-items-center justify-content-center"
+        data-scrollax-parent="true"
+      >
+        <div class="col-md-8 text-center ftco-animate">
+          <h1 class="mb-4">
+            Abilities Are Greater <span>Than Disabilities</span>
+          </h1>
+          <p>
+            <a href="#about" class="btn btn-secondary px-4 py-3 mt-3"
+              >Read More</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="slider-item"
+    style="background-image: url(../static/images/bg_2.png)"
+  >
+    <div class="overlay"></div>
+    <div class="container">
+      <div
+        class="row no-gutters slider-text align-items-center justify-content-center"
+        data-scrollax-parent="true"
+      >
+        <div class="col-md-8 text-center ftco-animate">
+          <h1 class="mb-4">Helping Hands, <span>Healing Hearts</span></h1>
+          <p>
+            <a href="#about" class="btn btn-secondary px-4 py-3 mt-3"
+              >Read More</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-services ftco-no-pb">
+  <div class="container-wrap">
+    <div class="row no-gutters">
+      <div
+        class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-primary"
+      >
+        <div class="media block-6 d-block text-center">
+          <div class="icon d-flex justify-content-center align-items-center">
+            <span class="flaticon-teacher"></span>
+          </div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Certified Trainers</h3>
+            <p>
+              Certified caregivers and educators work closely with families to
+              promote growth, inclusion, and learning progress.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-tertiary"
+      >
+        <div class="media block-6 d-block text-center">
+          <div class="icon d-flex justify-content-center align-items-center">
+            <span class="flaticon-reading"></span>
+          </div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Special Education</h3>
+            <p>
+              Empowering learners with disabilities through community-based
+              special education and therapy-focused support systems.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-fifth"
+      >
+        <div class="media block-6 d-block text-center">
+          <div class="icon d-flex justify-content-center align-items-center">
+            <span class="flaticon-books"></span>
+          </div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Book &amp; Library</h3>
+            <p>
+              Equipping our center with accessible books and tools to promote
+              literacy among children with diverse abilities.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-3 d-flex services align-self-stretch pb-4 px-4 ftco-animate bg-quarternary"
+      >
+        <div class="media block-6 d-block text-center">
+          <div class="icon d-flex justify-content-center align-items-center">
+            <span class="flaticon-diploma"></span>
+          </div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Certification</h3>
+            <p>
+              We proudly hold government certification that affirms our role in
+              serving children with disabilities and their families.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="ftco-section ftco-no-pt ftc-no-pb"
+  id="about"
+  style="scroll-margin-top: 120px"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 order-md-last wrap-about py-5 wrap-about bg-light">
+        <div class="text px-4 ftco-animate">
+          <h2 class="mb-4">Welcome to Arise & Shine</h2>
+          <p>
+            Arise and Shine CBO is a certified, community-based organization
+            located in Kericho, Kenya, dedicated to supporting children with
+            disabilities and neurodevelopmental disorders. Founded in 2023 and
+            officially registered in 2024, our mission is to advocate for the
+            rights, dignity, and inclusion of these individuals while empowering
+            caregivers and families. We provide a range of services including
+            inclusive care, vocational training, special education, and
+            occupational therapy. Through a team of dedicated professionals and
+            trained volunteers, we strive to build a more understanding,
+            inclusive society where every child can thrive.
+          </p>
+          <p>
+            We also run advocacy and awareness campaigns to combat stigma and
+            promote acceptance, while offering certified programs focused on
+            practical support and long-term sustainability. Our efforts are
+            strengthened through partnerships with local government bodies,
+            NGOs, faith-based institutions, and development partners. At Arise
+            and Shine CBO, we believe that every individual—regardless of
+            ability—deserves equal opportunities, access to resources, and the
+            chance to live a fulfilling life.
+          </p>
+          <p>
+            <a href="/about" class="btn btn-secondary px-4 py-3">Read More</a>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-7 wrap-about py-5 pr-md-4 ftco-animate">
+        <h2 class="mb-4">What We Offer</h2>
+        <p>
+          Arise and Shine CBO offers inclusive care, vocational training,
+          special education, occupational therapy, and advocacy for individuals
+          with disabilities. We empower caregivers, reduce stigma through
+          awareness, and create sustainable, certified programs that support
+          neurodiverse children and their families in Kericho, Kenya.
+        </p>
+        <div class="row mt-5">
+          <div class="col-lg-6">
+            <div class="services-2 d-flex">
+              <div
+                class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"
+              >
+                <span class="icon-user"></span>
+              </div>
+              <div class="text">
+                <h3>Inclusive Care</h3>
+                <p>
+                  Providing personalized, compassionate support for children
+                  with disabilities in a safe, welcoming environment.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="services-2 d-flex">
+              <div
+                class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"
+              >
+                <span class="icon-briefcase"></span>
+              </div>
+              <div class="text">
+                <h3>Vocational Training</h3>
+                <p>
+                  Empowering caregivers with hands-on skills to generate
+                  sustainable income and support their families.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="services-2 d-flex">
+              <div
+                class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"
+              >
+                <span class="icon-book"></span>
+              </div>
+              <div class="text">
+                <h3>Special Education</h3>
+                <p>
+                  Delivering adaptive learning programs that meet the unique
+                  needs of neurodiverse children.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="services-2 d-flex">
+              <div
+                class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"
+              >
+                <span class="icon-heart"></span>
+              </div>
+              <div class="text">
+                <h3>Occupational Therapy</h3>
+                <p>
+                  Helping children develop essential life skills through
+                  structured, supportive therapeutic activities.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="services-2 d-flex">
+              <div
+                class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"
+              >
+                <span class="icon-check"></span>
+              </div>
+              <div class="text">
+                <h3>Certified Community Programs</h3>
+                <p>
+                  Running officially registered and certified programs that
+                  ensure transparency, impact, and long-term sustainability.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="services-2 d-flex">
+              <div
+                class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"
+              >
+                <span class="icon-bullhorn"></span>
+              </div>
+              <div class="text">
+                <h3>Advocacy & Awareness</h3>
+                <p>
+                  Promoting disability rights, reducing stigma, and building
+                  inclusive communities through outreach and education.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="ftco-intro"
+  style="background-image: url(../static/images/bg_33.png)"
+  data-stellar-background-ratio="0.5"
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <h2>Empowering Every Child Through Inclusive Support</h2>
+        <p class="mb-0">
+          At Arise and Shine CBO, we nurture children with disabilities through
+          care, education, therapy, and community-based empowerment. Our
+          certified programs ensure every child receives the dignity, attention,
+          and opportunity they deserve to grow and thrive.
+        </p>
+      </div>
+
+      <div class="col-md-3 d-flex align-items-center">
+        <p class="mb-0"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section ftco-no-pb">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-2">
+      <div class="col-md-8 text-center heading-section ftco-animate">
+        <h2 class="mb-4"><span>Certified</span> Trainers</h2>
+        <p>
+          Separated they live in. A small river named Duden flows by their place
+          and supplies it with the necessary regelialia. It is a paradisematic
+          country
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-3 ftco-animate">
+        <div class="staff">
+          <div class="img-wrap d-flex align-items-stretch">
+            <div
+              class="img align-self-stretch"
+              style="background-image: url(../static/images/teacher-1.jpeg)"
+            ></div>
+          </div>
+          <div class="text pt-3 text-center">
+            <h3>Laureen</h3>
+            <span class="position mb-2">Nutritionist</span>
+            <div class="faded">
+              <p>
+                In charge of guiding caregivers on proper nutrition to improve
+                children’s growth, health, and development.
+              </p>
+
+              <ul class="ftco-social text-center">
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-twitter"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-facebook"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-google-plus"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-instagram"></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 ftco-animate">
+        <div class="staff">
+          <div class="img-wrap d-flex align-items-stretch">
+            <div
+              class="img align-self-stretch"
+              style="background-image: url(../static/images/teacher-2.jpeg)"
+            ></div>
+          </div>
+          <div class="text pt-3 text-center">
+            <h3>Micnon Chepkirui</h3>
+            <span class="position mb-2">Physiotherapist</span>
+            <div class="faded">
+              <p>
+                In charge of helping children improve mobility, coordination,
+                and strength through personalized physical therapy exercises.
+              </p>
+              <ul class="ftco-social text-center">
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-twitter"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-facebook"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-google-plus"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-instagram"></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 ftco-animate">
+        <div class="staff">
+          <div class="img-wrap d-flex align-items-stretch">
+            <div
+              class="img align-self-stretch"
+              style="background-image: url(../static/images/teacher-3.jpeg)"
+            ></div>
+          </div>
+          <div class="text pt-3 text-center">
+            <h3>Pamela Keno</h3>
+            <span class="position mb-2">Support</span>
+            <div class="faded">
+              <p>
+                In charge of assisting families with day-to-day care, resources,
+                and inclusive community integration services.
+              </p>
+              <ul class="ftco-social text-center">
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-twitter"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-facebook"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-google-plus"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-instagram"></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 ftco-animate">
+        <div class="staff">
+          <div class="img-wrap d-flex align-items-stretch">
+            <div
+              class="img align-self-stretch"
+              style="background-image: url(../static/images/teacher-4.jpeg)"
+            ></div>
+          </div>
+          <div class="text pt-3 text-center">
+            <h3>Paul Keno</h3>
+            <span class="position mb-2">Biblical counselor</span>
+            <div class="faded">
+              <p>
+                In charge of offering spiritual and emotional support to
+                families through the instructions of the Lord Jesus Christ.
+              </p>
+              <ul class="ftco-social text-center">
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-twitter"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-facebook"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-google-plus"></span></a>
+                </li>
+                <li class="ftco-animate">
+                  <a href="#"><span class="icon-instagram"></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-2">
+      <div class="col-md-8 text-center heading-section ftco-animate">
+        <h2 class="mb-4"><span>Our</span> Programs</h2>
+        <p>
+          We offer hands-on vocational training in peanut butter production,
+          reusable hygiene products, child care, and basic therapy—empowering
+          caregivers with practical skills to support children and create
+          sustainable income.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 course d-lg-flex ftco-animate">
+        <div
+          class="img"
+          style="
+            background-image: url('https://www.svgrepo.com/show/103970/peanut-butter-jar.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 200px;
+          "
+        ></div>
+
+        <div class="text bg-light p-4">
+          <h3><a href="/peanut-butter">Peanut Processing</a></h3>
+          <p class="subheading"><span>Schedule:</span> Vocational Sessions</p>
+          <p>
+            Training caregivers in small-scale food processing to create
+            income-generating opportunities.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 course d-lg-flex ftco-animate">
+        <div
+          class="img"
+          style="
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2206/2206368.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 200px;
+          "
+        ></div>
+
+        <div class="text bg-light p-4">
+          <h3>
+            <a href="/hygiene-products">Hygiene Products</a>
+          </h3>
+          <p class="subheading"><span>Schedule:</span> Vocational Sessions</p>
+          <p>
+            Teaching the production of eco-friendly, locally sourced hygiene
+            products to promote health and income sustainability.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 course d-lg-flex ftco-animate">
+        <div
+          class="img"
+          style="
+            background-image: url('https://www.svgrepo.com/show/326161/child-care.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 200px;
+          "
+        ></div>
+
+        <div class="text bg-light p-4">
+          <h3><a href="/child-care">Child Care Skills</a></h3>
+          <p class="subheading"><span>Schedule:</span> Vocational Sessions</p>
+          <p>
+            Guided by trained volunteers and social workers, this includes basic
+            care and occupational therapy techniques to support children with
+            neurodevelopmental disorders.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 course d-lg-flex ftco-animate">
+        <div
+          class="img"
+          style="
+            background-image: url('https://www.svgrepo.com/show/281629/therapy.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 200px;
+          "
+        ></div>
+
+        <div class="text bg-light p-4">
+          <h3><a href="/therapy">Basic Therapy</a></h3>
+          <p class="subheading"><span>Schedule:</span> Vocational Sessions</p>
+          <p>
+            Equipping caregivers and volunteers with essential skills in
+            occupational therapy, behavior support, and disability care
+            techniques.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="ftco-section ftco-counter img position-relative"
+  id="section-counter"
+  style="
+    background-image: url(../static/images/bg_4.png);
+    background-size: cover;
+    background-position: center;
+  "
+  data-stellar-background-ratio="0.5"
+>
+  <!-- Overlay -->
+  <div
+    style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    "
+  ></div>
+
+  <!-- Content with relative position and higher z-index -->
+  <div class="container position-relative" style="z-index: 2">
+    <div class="row justify-content-center mb-5 pb-2">
+      <div class="col-md-8 text-center heading-section text-white ftco-animate">
+        <h2 class="mb-4"><span>2 Years of</span> Experience</h2>
+        <p>
+          With nearly two years of hands-on service, Arise and Shine CBO has
+          empowered caregivers, supported children with disabilities, and driven
+          inclusive change through certified programs and compassionate
+          community engagement.
+        </p>
+      </div>
+    </div>
+
+    <div class="row d-md-flex align-items-center justify-content-center">
+      <div class="col-lg-10">
+        <div class="row d-md-flex align-items-center">
+          <div
+            class="col-md d-flex justify-content-center counter-wrap ftco-animate"
+          >
+            <div class="block-18">
+              <div class="icon"><span class="flaticon-doctor"></span></div>
+              <div class="text">
+                <strong class="number" data-number="4">0</strong>
+                <span class="text-white">Certified Trainers</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md d-flex justify-content-center counter-wrap ftco-animate"
+          >
+            <div class="block-18">
+              <div class="icon"><span class="flaticon-doctor"></span></div>
+              <div class="text">
+                <strong class="number" data-number="35">0</strong>
+                <span class="text-white">Successful Kids</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md d-flex justify-content-center counter-wrap ftco-animate"
+          >
+            <div class="block-18">
+              <div class="icon"><span class="flaticon-doctor"></span></div>
+              <div class="text">
+                <strong class="number" data-number="35">0</strong>
+                <span class="text-white">Happy Parents</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-2">
+      <div class="col-md-8 text-center heading-section ftco-animate">
+        <h2 class="mb-4"><span>What Parents</span> Say About Us</h2>
+        <p>
+          We value the voices of our families. Here's what some of our amazing
+          parents have to say about their journey with Arise and Shine CBO.
+        </p>
+      </div>
+    </div>
+
+    <div class="row ftco-animate justify-content-center">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel">
+          <!-- Testimonial 1 -->
+          <div class="item">
+            <div class="testimony-wrap d-flex align-items-start">
+              <div class="icon-wrap mr-4">
+                <div
+                  class="avatar"
+                  style="
+                    background-image: url('https://cdn-icons-png.flaticon.com/512/2922/2922506.png');
+                  "
+                ></div>
+              </div>
+              <div class="text bg-white p-4 shadow rounded">
+                <span class="quote"><i class="icon-quote-left"></i></span>
+                <p>
+                  This ministry reached out to Parents and children with a
+                  condition of autism
+                </p>
+                <p class="name mb-0 font-weight-bold">Paul Keno</p>
+                <span class="position text-muted">Father</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="item">
+            <div class="testimony-wrap d-flex align-items-start">
+              <div class="icon-wrap mr-4">
+                <div
+                  class="avatar"
+                  style="
+                    background-image: url('https://cdn-icons-png.flaticon.com/512/2922/2922561.png');
+                  "
+                ></div>
+              </div>
+              <div class="text bg-white p-4 shadow rounded">
+                <span class="quote"><i class="icon-quote-left"></i></span>
+                <p>
+                  My child was diagnossed with Menengitis and Jondis and later
+                  on Cerebral palsy. I was told the solution was medication and
+                  physio therapy which Arise and Shine Supported
+                </p>
+                <p class="name mb-0 font-weight-bold">Beatrice Koech</p>
+                <span class="position text-muted">Mother</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="item">
+            <div class="testimony-wrap d-flex align-items-start">
+              <div class="icon-wrap mr-4">
+                <div
+                  class="avatar"
+                  style="
+                    background-image: url('https://cdn-icons-png.flaticon.com/512/2922/2922561.png');
+                  "
+                ></div>
+              </div>
+              <div class="text bg-white p-4 shadow rounded">
+                <span class="quote"><i class="icon-quote-left"></i></span>
+                <p>
+                  I lost hope and wanted to commit suicide because I had a child
+                  with disability but now I am encouraged.
+                </p>
+                <p class="name mb-0 font-weight-bold">Winnie Chelangat</p>
+                <span class="position text-muted">Mother</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div class="item">
+            <div class="testimony-wrap d-flex align-items-start">
+              <div class="icon-wrap mr-4">
+                <div
+                  class="avatar"
+                  style="
+                    background-image: url('https://cdn-icons-png.flaticon.com/512/2922/2922561.png');
+                  "
+                ></div>
+              </div>
+              <div class="text bg-white p-4 shadow rounded">
+                <span class="quote"><i class="icon-quote-left"></i></span>
+                <p>
+                  These children rely on medication twice a day, from morning to
+                  evening. Having a child born with a disability opened my heart
+                  to support and understand others facing the same journey
+                </p>
+                <p class="name mb-0 font-weight-bold">Pamela Amase</p>
+                <span class="position text-muted">Mother</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section bg-light mt-n2 pt-2">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-2">
+      <div class="col-md-8 text-center heading-section ftco-animate">
+        <h2 class="mb-4"><span>Recent</span> Blog</h2>
+        <p>
+          Separated they live in. A small river named Duden flows by their place
+          and supplies it with the necessary regelialia. It is a paradisematic
+          country
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      {% for post in posts[:3] %}
+      <!-- Only show first 3 posts -->
+      <div class="col-md-6 col-lg-4 ftco-animate">
+        <div class="blog-entry">
+          {% set post_image = url_for('static', filename='uploads/' +
+          post.blog_image) if post.blog_image else url_for('static',
+          filename='images/default_blog.jpg') %}
+          <a
+            href="{{ url_for('blog_single', post_id=post.blog_id) }}"
+            class="block-20 d-flex align-items-end"
+            style="background-image: url('{{ post_image }}')"
+          >
+            <div class="meta-date text-center p-2">
+              <span class="day">{{ post.day }}</span>
+              <span class="mos">{{ post.month }}</span>
+              <span class="yr">{{ post.year }}</span>
+            </div>
+          </a>
+          <div class="text bg-white p-4">
+            <h3 class="heading">
+              <a href="{{ url_for('blog_single', post_id=post.blog_id) }}"
+                >{{ post.blog_title }}</a
+              >
+            </h3>
+            <p>{{ post.blog_body|striptags|truncate(150) }}</p>
+            <div class="d-flex align-items-center mt-4">
+              <p class="mb-0">
+                <a
+                  href="{{ url_for('blog_single', post_id=post.blog_id) }}"
+                  class="btn btn-secondary"
+                >
+                  Read More <span class="ion-ios-arrow-round-forward"></span>
+                </a>
+              </p>
+              <p class="ml-auto mb-0">
+                <a href="#" class="mr-2">{{ post.blog_author }}</a>
+                <a href="#" class="meta-chat"
+                  ><span class="icon-chat"></span> 3</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-12">
+        <div class="alert alert-info">No blog posts found.</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- View All Blogs Button -->
+    <div class="row mt-5">
+      <div class="col text-center">
+        <a href="{{ url_for('blog') }}" class="btn btn-primary py-3 px-5"
+          >View All Blogs</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-gallery">
+  <div class="container-wrap">
+    <div class="row no-gutters">
+      <div class="col-md-3 ftco-animate">
+        <a
+          href="../static/images/image_1.png"
+          class="gallery image-popup img d-flex align-items-center"
+          style="background-image: url(../static/images/image_1.png)"
+        >
+          <div
+            class="icon mb-4 d-flex align-items-center justify-content-center"
+          >
+            <span class="icon-instagram"></span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 ftco-animate">
+        <a
+          href="../static/images/image_2.jpg"
+          class="gallery image-popup img d-flex align-items-center"
+          style="background-image: url(../static/images/image_2.jpg)"
+        >
+          <div
+            class="icon mb-4 d-flex align-items-center justify-content-center"
+          >
+            <span class="icon-instagram"></span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 ftco-animate">
+        <a
+          href="../static/images/image_3.jpg"
+          class="gallery image-popup img d-flex align-items-center"
+          style="background-image: url(../static/images/image_3.jpg)"
+        >
+          <div
+            class="icon mb-4 d-flex align-items-center justify-content-center"
+          >
+            <span class="icon-instagram"></span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 ftco-animate">
+        <a
+          href="../static/images/image_4.png"
+          class="gallery image-popup img d-flex align-items-center"
+          style="background-image: url(../static/images/image_4.png)"
+        >
+          <div
+            class="icon mb-4 d-flex align-items-center justify-content-center"
+          >
+            <span class="icon-instagram"></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+</script>
+{% endblock %}

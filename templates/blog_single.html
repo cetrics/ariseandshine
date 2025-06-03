@@ -1,0 +1,77 @@
+{% extends "index.html" %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/blog.css') }}"
+/>
+
+<!-- Hero Section with Background Image -->
+<section
+  class="hero-wrap hero-wrap-2 position-relative"
+  style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url('{{ post.image_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  "
+>
+  <!-- Optional blur to soften image imperfections -->
+  <div
+    class="hero-blur"
+    style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(2px);
+      z-index: 0;
+    "
+  ></div>
+
+  <div class="container position-relative" style="z-index: 1">
+    <div
+      class="row no-gutters slider-text align-items-center justify-content-center"
+    >
+      <div class="col-md-9 ftco-animate text-center text-white">
+        <h1 class="mb-2 bread">{{ post.blog_title }}</h1>
+        <p class="breadcrumbs">
+          <span class="mr-2">
+            <a href="{{ url_for('index') }}" class="text-white">
+              Home <i class="ion-ios-arrow-forward"></i>
+            </a>
+          </span>
+          <span class="mr-2">
+            <a href="{{ url_for('blog') }}" class="text-white">
+              Blog <i class="ion-ios-arrow-forward"></i>
+            </a>
+          </span>
+          <span class="text-white">
+            Post <i class="ion-ios-arrow-forward"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 blog-single">
+        <h2 class="mb-3">{{ post.blog_title }}</h2>
+        <div class="meta mb-4">
+          <span class="mr-2">{{ post.blog_author }}</span>
+          <span>{{ post.formatted_date }}</span>
+        </div>
+        <div class="blog-content">{{ post.blog_body|safe }}</div>
+        <div class="pt-4 mt-4">
+          <a href="{{ url_for('blog') }}" class="btn btn-secondary">
+            Back to Blog <span class="ion-ios-arrow-round-forward"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

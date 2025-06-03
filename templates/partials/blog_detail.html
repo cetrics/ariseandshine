@@ -1,0 +1,118 @@
+{% if not is_htmx %}
+<!-- Only show full page structure for direct loads -->
+{% include "partials/header.html" %} {% endif %}
+
+<section
+  class="hero-wrap hero-wrap-2"
+  style="background-image: url('/static/images/bg_2.jpg')"
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div
+      class="row no-gutters slider-text align-items-center justify-content-center"
+    >
+      <div class="col-md-9 ftco-animate text-center">
+        <h1 class="mb-2 bread">{{ blog.blog_title }}</h1>
+        <p class="breadcrumbs">
+          <span class="mr-2">
+            <a
+              href="/"
+              hx-get="/"
+              hx-target="#content"
+              hx-push-url="true"
+              hx-history="true"
+            >
+              Home <i class="ion-ios-arrow-forward"></i>
+            </a>
+          </span>
+          <span class="mr-2">
+            <a
+              href="/blog"
+              hx-get="/blog"
+              hx-target="#content"
+              hx-push-url="true"
+              hx-history="true"
+            >
+              Blog <i class="ion-ios-arrow-forward"></i>
+            </a>
+          </span>
+          <span>Post <i class="ion-ios-arrow-forward"></i></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 ftco-animate">
+        <h2 class="mb-3">{{ blog.blog_title }}</h2>
+        <p class="text-muted">
+          <i class="icon-person"></i> by {{ blog.blog_author }} |
+          <i class="icon-calendar"></i> {{ blog.blog_time.strftime('%B %d, %Y')
+          }}
+        </p>
+
+        <img
+          src="/static/uploads/{{ blog.blog_image }}"
+          alt="{{ blog.blog_title }}"
+          class="img-fluid mb-4"
+          onerror="this.src='/static/images/default_blog.jpg'"
+        />
+
+        <div class="blog-content">{{ blog.blog_body|safe }}</div>
+
+        <div class="pt-5 mt-5">
+          <a
+            href="/blog"
+            hx-get="/blog"
+            hx-target="#content"
+            hx-push-url="true"
+            hx-history="true"
+            class="btn btn-primary"
+          >
+            Back to Blog
+          </a>
+        </div>
+      </div>
+
+      <!-- Optional sidebar -->
+      <div class="col-lg-4 sidebar ftco-animate">
+        <div class="sidebar-box">
+          <h3>Recent Posts</h3>
+          <div
+            id="recent-posts"
+            hx-get="/recent-posts"
+            hx-trigger="load"
+            hx-swap="innerHTML"
+          >
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if not is_htmx %}
+<!-- Only show footer for direct loads -->
+{% include "partials/footer.html" %} {% endif %}
+
+<script>
+  // Handle history restoration
+  document.addEventListener("htmx:afterSwap", function () {
+    // Update page title
+    document.title = "{{ blog.blog_title }} | Your Site Name";
+
+    // Scroll to top on navigation
+    window.scrollTo(0, 0);
+
+    // Ensure all HTMX links maintain history
+    document.querySelectorAll("[hx-get]").forEach((el) => {
+      el.setAttribute("hx-history", "true");
+    });
+  });
+</script>
