@@ -11,6 +11,7 @@ import UploadBlog from "./pages/UploadBlog.jsx"; // ✅ Add this import
 import BlogList from "./pages/BlogList.jsx";
 import Contacts from "./pages/Contact.jsx";
 import Subscribers from "./pages/Subscribers.jsx";
+import GivingRecords from "./pages/Giving.jsx";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/upload-blog" element={<UploadBlog />} />{" "}
         <Route path="/contact-list" element={<Contacts />} />{" "}
         <Route path="/subscriber-list" element={<Subscribers />} />{" "}
+        <Route path="/giving-list" element={<GivingRecords />} />{" "}
         <Route path="/blog-list" element={<BlogList />} /> {/* ✅ New Route */}
         <Route path="/" element={<Navigate to="/admin-dashboard" replace />} />
       </Routes>

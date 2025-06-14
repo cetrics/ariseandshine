@@ -45,6 +45,33 @@
     position: relative;
     z-index: 1;
   }
+
+  /* Solution 1 + 2 combined (recommended) */
+  .blog-entry {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .text {
+    flex: 1;
+  }
+  .heading {
+    min-height: 60px;
+  }
+  .heading a {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Safari/Chrome (legacy) */
+    line-clamp: 2; /* Modern browsers (Firefox, Chrome 90+, Edge) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* Fallback for non-WebKit browsers (if needed) */
+    @supports not (-webkit-line-clamp: 2) {
+      max-height: 3em; /* Adjust based on line-height */
+      line-height: 1.5em;
+    }
+  }
 </style>
 
 <section class="home-slider owl-carousel">
@@ -842,9 +869,6 @@
               </p>
               <p class="ml-auto mb-0">
                 <a href="#" class="mr-2">{{ post.blog_author }}</a>
-                <a href="#" class="meta-chat"
-                  ><span class="icon-chat"></span> 3</a
-                >
               </p>
             </div>
           </div>
@@ -938,5 +962,196 @@
       }
     });
   });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. Fix Hero Section Scrolling
+  const fixHeroScrolling = () => {
+    const heroSlider = document.querySelector('.home-slider');
+    if (!heroSlider) return;
+
+    // Set proper heights and enable scrolling
+    heroSlider.style.height = '100vh';
+    heroSlider.style.overflow = 'hidden';
+    
+    // Make slider items scrollable
+    document.querySelectorAll('.slider-item').forEach(item => {
+      item.style.height = '100vh';
+      item.style.overflowY = 'auto';
+      item.style.webkitOverflowScrolling = 'touch';
+      item.style.touchAction = 'pan-y';
+    });
+
+    // Fix overlays
+    document.querySelectorAll('.slider-item .overlay').forEach(overlay => {
+      overlay.style.pointerEvents = 'none';
+    });
+  };
+
+  // 2. Fix Testimonial Carousel Scrolling
+  const fixTestimonialScrolling = () => {
+    const testimonialCarousel = document.querySelector('.testimony-section .owl-carousel');
+    if (!testimonialCarousel) return;
+
+    // Enable touch scrolling
+    testimonialCarousel.style.touchAction = 'pan-y';
+    testimonialCarousel.style.webkitOverflowScrolling = 'touch';
+    
+    // Initialize Owl Carousel with touch-friendly settings
+    if (typeof $.fn.owlCarousel === 'function') {
+      $('.testimony-section .owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 20,
+        nav: false,
+        dots: true,
+        touchDrag: true,
+        pullDrag: true,
+        mouseDrag: true,
+        responsiveRefreshRate: 100,
+        touchThreshold: 5
+      });
+    }
+
+    // Make carousel items touch-friendly
+    document.querySelectorAll('.testimony-section .item').forEach(item => {
+      item.style.touchAction = 'pan-y';
+      item.style.pointerEvents = 'auto';
+    });
+  };
+
+  // 3. Remove White Space Between Sections
+  const fixSectionSpacing = () => {
+    const hero = document.querySelector('.home-slider');
+    if (hero && hero.nextElementSibling) {
+      hero.nextElementSibling.style.marginTop = '0';
+    }
+  };
+
+  // 4. Maintain Existing Smooth Scrolling
+  const setupSmoothScrolling = () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  };
+
+  // 5. iOS Specific Fixes
+  const iosFixes = () => {
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      // Force redraw for iOS
+      setTimeout(() => {
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+          document.body.style.overflow = 'auto';
+        }, 100);
+      }, 500);
+    }
+  };
+
+  // Initialize all fixes
+  fixHeroScrolling();
+  fixTestimonialScrolling();
+  fixSectionSpacing();
+  setupSmoothScrolling();
+  iosFixes();
+
+  // Ensure touch events work everywhere
+  document.addEventListener('touchstart', function() {}, {passive: true});
+  document.addEventListener('touchmove', function() {}, {passive: true});
+
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    fixHeroScrolling();
+    fixTestimonialScrolling();
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. TARGET SPECIFIC TESTIMONIAL ITEMS
+  const testimonialItems = document.querySelectorAll('.carousel-testimony .item');
+  
+  // 2. APPLY SCROLL FIXES TO EACH ITEM
+  function fixTestimonialScrolling() {
+    testimonialItems.forEach(item => {
+      // Make the item scrollable
+      item.style.touchAction = 'pan-y';
+      item.style.overflowY = 'auto';
+      item.style.webkitOverflowScrolling = 'touch';
+      
+      // Fix the testimony wrapper
+      const testimonyWrap = item.querySelector('.testimony-wrap');
+      if (testimonyWrap) {
+        testimonyWrap.style.touchAction = 'pan-y';
+        testimonyWrap.style.pointerEvents = 'auto';
+      }
+      
+      // Ensure text content is scrollable
+      const textContent = item.querySelector('.text');
+      if (textContent) {
+        textContent.style.overflowY = 'auto';
+        textContent.style.maxHeight = '70vh'; // Prevent overflow
+      }
+    });
+  }
+
+  // 3. OWL CAROUSEL COMPATIBILITY
+  function setupCarousel() {
+    if (typeof $.fn.owlCarousel === 'function') {
+      $('.carousel-testimony').owlCarousel({
+        items: 1,
+        loop: true,
+        touchDrag: true,
+        pullDrag: true,
+        onInitialized: function() {
+          // Re-apply fixes after carousel initializes
+          setTimeout(fixTestimonialScrolling, 100);
+        }
+      });
+    }
+  }
+
+  // 4. TOUCH EVENT HANDLING
+  function enableTouchEvents() {
+    testimonialItems.forEach(item => {
+      item.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+      }, { passive: true });
+      
+      item.addEventListener('touchmove', function(e) {
+        if (this.scrollHeight > this.clientHeight) {
+          e.stopPropagation();
+        }
+      }, { passive: false });
+    });
+  }
+
+  // 5. INITIALIZE ALL FIXES
+  function initialize() {
+    fixTestimonialScrolling();
+    setupCarousel();
+    enableTouchEvents();
+    
+    // iOS-specific fixes
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      document.querySelectorAll('.testimony-wrap').forEach(wrap => {
+        wrap.style.transform = 'translate3d(0,0,0)';
+      });
+    }
+  }
+
+  // First initialization
+  initialize();
+  
+  // Re-initialize after delay (for dynamic content)
+  setTimeout(initialize, 500);
+});
 </script>
 {% endblock %}

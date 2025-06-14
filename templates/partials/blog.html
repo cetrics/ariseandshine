@@ -3,6 +3,34 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/blog.css') }}"
 />
+<style>
+  /* Solution 1 + 2 combined (recommended) */
+  .blog-entry {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .text {
+    flex: 1;
+  }
+  .heading {
+    min-height: 60px;
+  }
+  .heading a {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Safari/Chrome (legacy) */
+    line-clamp: 2; /* Modern browsers (Firefox, Chrome 90+, Edge) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* Fallback for non-WebKit browsers (if needed) */
+    @supports not (-webkit-line-clamp: 2) {
+      max-height: 3em; /* Adjust based on line-height */
+      line-height: 1.5em;
+    }
+  }
+</style>
 
 <!-- Hero Section -->
 <section
@@ -31,7 +59,7 @@
       class="row no-gutters slider-text align-items-center justify-content-center"
     >
       <div class="col-md-9 ftco-animate text-center text-white">
-        <h1 class="mb-2 bread">Programs</h1>
+        <h1 class="mb-2 bread">Blog</h1>
         <p class="breadcrumbs">
           <span class="mr-2">
             <a href="index.html" class="text-white"
@@ -39,7 +67,7 @@
             ></a>
           </span>
           <span class="text-white"
-            >Programs <i class="ion-ios-arrow-forward"></i
+            >Blog <i class="ion-ios-arrow-forward"></i
           ></span>
         </p>
       </div>
@@ -86,9 +114,6 @@
               </p>
               <p class="ml-auto mb-0">
                 <a href="#" class="mr-2">{{ post.blog_author }}</a>
-                <a href="#" class="meta-chat"
-                  ><span class="icon-chat"></span> 3</a
-                >
               </p>
             </div>
           </div>

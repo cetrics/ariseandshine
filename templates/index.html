@@ -70,6 +70,37 @@
         opacity: 0;
         visibility: hidden;
       }
+      @media (max-width: 991.98px) {
+        /* White background for the entire nav on mobile */
+        nav#ftco-navbar {
+          background-color: #fff !important;
+        }
+
+        /* Optional: make nav links darker since bg is now white */
+        nav#ftco-navbar .nav-link {
+          color: #333 !important;
+        }
+
+        /* Make toggle button (hamburger) darker for contrast */
+        nav#ftco-navbar .navbar-toggler {
+          border-color: #333;
+        }
+
+        nav#ftco-navbar .navbar-toggler .oi-menu {
+          color: #333;
+        }
+
+        /* Optional: dropdown styling (if you want to tweak on mobile too) */
+        nav#ftco-navbar .dropdown-menu {
+          background-color: #fff;
+          color: #333;
+        }
+      }
+      .logo-text {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+      }
     </style>
   </head>
   <body>
@@ -96,7 +127,7 @@
                 >
                   <span class="icon-paper-plane"></span>
                 </div>
-                <span class="text">info@ariseandshine.co.ke</span>
+                <span class="text">info@ariseandshinecbo.co.ke</span>
               </div>
               <div class="col-md pr-4 d-flex topper align-items-center">
                 <div
@@ -116,27 +147,18 @@
       id="ftco-navbar"
     >
       <div class="container d-flex align-items-center">
-        <a
-          class="navbar-brand d-flex align-items-center gap-2"
-          href="index.html"
-        >
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
           <img
             src="../static/images/logo.png"
             alt="Logo"
-            style="height: 80px"
+            style="height: 50px"
           />
-          Arise and Shine
+          <div class="logo-text">
+            <span class="bold-part">Arise & Shine</span>
+          </div>
         </a>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#ftco-nav"
-          aria-controls="ftco-nav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
       </div>
@@ -194,6 +216,11 @@
             class="nav-item {% if request.path == '/blog' %}active{% endif %}"
           >
             <a href="/blog" class="nav-link">Blog</a>
+          </li>
+          <li
+            class="nav-item {% if request.path == '/giving' %}active{% endif %}"
+          >
+            <a href="/giving" class="nav-link">Giving</a>
           </li>
           <li
             class="nav-item {% if request.path == '/contact' %}active{% endif %}"
@@ -274,9 +301,7 @@
                         }}</a
                       >
                     </div>
-                    <div>
-                      <a href="#"><span class="icon-chat"></span> 19</a>
-                    </div>
+                    <div></div>
                   </div>
                 </div>
               </div>
@@ -324,6 +349,11 @@
             <div class="ftco-footer-widget mb-5">
               <h2 class="ftco-heading-2">Subscribe Us!</h2>
               <form id="subscribeForm" class="subscribe-form">
+                <input
+                  type="hidden"
+                  name="csrf_token"
+                  value="{{ csrf_token() }}"
+                />
                 <div class="form-group">
                   <input
                     type="email"
@@ -435,6 +465,16 @@
             });
         });
     </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.querySelector(".navbar-toggler");
+        const navMenu = document.getElementById("ftco-nav");
+
+        toggleButton.addEventListener("click", function () {
+          navMenu.classList.toggle("show");
+        });
+      });
+    </script>
 
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/jquery-migrate-3.0.1.min.js"></script>
@@ -451,5 +491,12 @@
     <script src="../static/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- Popper.js (required for tooltips, popovers, and navbar toggling) -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap 4 JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
   </body>
 </html>

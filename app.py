@@ -7,9 +7,12 @@ from datetime import datetime
 from flask_cors import CORS
 import uuid
 from flask import make_response
+from flask_wtf.csrf import CSRFProtect, generate_csrf 
+import sys
 
 app = Flask(__name__)
 CORS(app)
+csrf = CSRFProtect(app)
 
 app.secret_key = 'your_secret_key'
 
@@ -139,8 +142,58 @@ def submit_contact():
 def contact():
     return render_template("partials/contact.html")
 
+@app.route("/giving")
+def givng():
+    return render_template("partials/giving.html")
+
+@app.route('/submit-giving', methods=['POST'])
+def submit_giving():
+    try:
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        currency = request.form.get('currency')
+        amount = request.form.get('amount')
+        purpose = request.form.get('purpose')
+        
+        # Basic validation
+        if not email or not amount:
+            return jsonify({'status': 'error', 'message': 'Email and amount are required'}), 400
+        
+        # Connect to database
+        connection = get_db_connection()
+        if not connection:
+            return jsonify({'status': 'error', 'message': 'Database connection failed'}), 500
+            
+        cursor = connection.cursor()
+        
+        # Insert giving record
+        query = """
+        INSERT INTO giving_records (name, email, phone, currency, amount, purpose, date_given)
+        VALUES (%s, %s, %s, %s, %s, %s, NOW())
+        """
+        cursor.execute(query, (name, email, phone, currency, amount, purpose))
+        connection.commit()
+        
+        cursor.close()
+        connection.close()
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Thank you for your giving! Your details have been recorded.'
+        })
+        
+    except Exception as e:
+        print(f"Error submitting giving: {e}", file=sys.stderr)
+        return jsonify({
+            'status': 'error',
+            'message': 'An error occurred while processing your giving details'
+        }), 500
+
 
 @app.route("/subscribe", methods=["POST"])
+@csrf.exempt
 def subscribe():
     data = request.get_json()
     email = data.get("email")
@@ -298,6 +351,7 @@ def catch_all(path):
 
 # ======== BLOG MANAGEMENT ROUTES ========
 @app.route("/upload-blog", methods=["POST"])
+@csrf.exempt
 def upload_blog():
     connection = get_db_connection()
     cursor = None
@@ -373,6 +427,7 @@ def get_blogs():
             connection.close()
 
 @app.route("/delete-blog/<int:blog_id>", methods=["DELETE"])
+@csrf.exempt
 def delete_blog(blog_id):
     connection = get_db_connection()
     if not connection:
@@ -406,6 +461,7 @@ def delete_blog(blog_id):
             connection.close()
 
 @app.route("/update-blog/<int:blog_id>", methods=["PUT"])
+@csrf.exempt
 def update_blog(blog_id):
     connection = get_db_connection()
     if not connection:
@@ -428,10 +484,13 @@ def update_blog(blog_id):
                     except Exception as e:
                         print(f"Warning: Could not delete old image: {e}")
                 
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                # Generate unique filename
+                original_filename = secure_filename(file.filename)
+                extension = os.path.splitext(original_filename)[1]
+                unique_filename = f"{uuid.uuid4().hex}{extension}"
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
                 file.save(filepath)
-                current_image = filename
+                current_image = unique_filename
         
         update_query = """
             UPDATE blog 
@@ -515,6 +574,29 @@ def get_subscribers():
                 cursor.close()
                 connection.close()
     return jsonify({'success': False, 'error': 'Database connection failed'}), 500
+
+@app.route('/api/giving-records')
+def get_giving_records():
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
+        
+        cursor.execute("""
+            SELECT id, name, email, phone, currency, amount, purpose, date_given
+            FROM giving_records
+            ORDER BY date_given DESC
+        """)
+        records = cursor.fetchall()
+        
+        cursor.close()
+        connection.close()
+        
+        return jsonify(records)
+        
+    except Exception as e:
+        print(f"Error fetching giving records: {e}", file=sys.stderr)
+        return jsonify({'status': 'error', 'message': str(e)}), 500   
+
 
 
 

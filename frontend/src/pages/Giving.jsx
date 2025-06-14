@@ -1,31 +1,40 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Contacts = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filteredContacts, setFilteredContacts] = useState([]);
+const GivingRecords = () => {
+  const [records, setRecords] = useState([]);
+  const [filteredRecords, setFilteredRecords] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
     axios
-      .get("/api/contacts")
+      .get("/api/giving-records")
       .then((response) => {
-        setContacts(response.data);
-        setFilteredContacts(response.data);
+        setRecords(response.data);
+        setFilteredRecords(response.data);
       })
-      .catch((error) => console.error("Error fetching contacts:", error));
+      .catch((error) => console.error("Error fetching giving records:", error));
   }, []);
 
   useEffect(() => {
     const lowerSearch = search.toLowerCase();
-    const filtered = contacts.filter(
-      (contact) =>
-        contact.contact_name.toLowerCase().includes(lowerSearch) ||
-        contact.contact_subject.toLowerCase().includes(lowerSearch)
+    const filtered = records.filter(
+      (record) =>
+        record.name.toLowerCase().includes(lowerSearch) ||
+        record.email.toLowerCase().includes(lowerSearch) ||
+        record.purpose.toLowerCase().includes(lowerSearch)
     );
-    setFilteredContacts(filtered);
-  }, [search, contacts]);
+    setFilteredRecords(filtered);
+  }, [search, records]);
+
+  const formatCurrency = (amount, currency) => {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: currency || "USD",
+      minimumFractionDigits: 2,
+    }).format(amount);
+  };
 
   const styles = {
     container: {
@@ -68,23 +77,36 @@ const Contacts = () => {
     email: {
       fontSize: "14px",
       color: "#888",
-      marginBottom: "12px",
+      marginBottom: "8px",
       fontStyle: "italic",
     },
-    subject: {
-      fontSize: "16px",
-      color: "#555",
-      marginBottom: "12px",
+    amount: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      color: "#27ae60",
+      marginBottom: "8px",
     },
-    message: {
+    details: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: "12px",
+      flexWrap: "wrap",
+    },
+    detailItem: {
+      marginRight: "15px",
+      fontSize: "14px",
+      color: "#555",
+    },
+    purpose: {
       fontSize: "15px",
       color: "#444",
       lineHeight: "1.5",
+      fontStyle: "italic",
     },
     viewButton: {
       marginTop: "12px",
       padding: "8px 16px",
-      backgroundColor: "#007BFF",
+      backgroundColor: "#27ae60",
       color: "#fff",
       border: "none",
       borderRadius: "5px",
@@ -130,7 +152,7 @@ const Contacts = () => {
       border: "none",
       color: "#888",
     },
-    noContacts: {
+    noRecords: {
       textAlign: "center",
       color: "#777",
       fontStyle: "italic",
@@ -140,55 +162,50 @@ const Contacts = () => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>📬 Contact Messages</h1>
+      <h1 style={styles.heading}>💵 Giving Records</h1>
 
       <input
         type="text"
-        placeholder="Search by name or subject..."
+        placeholder="Search by name, email or purpose..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={styles.searchInput}
       />
 
-      {filteredContacts.length === 0 ? (
-        <p style={styles.noContacts}>No messages match your search.</p>
+      {filteredRecords.length === 0 ? (
+        <p style={styles.noRecords}>No giving records match your search.</p>
       ) : (
-        filteredContacts.map((contact) => (
-          <div key={contact.contact_id} style={styles.card}>
-            <div style={styles.name}>{contact.contact_name}</div>
-            <div style={styles.email}>{contact.contact_email}</div>{" "}
-            {/* Added contact_email */}
-            <div style={styles.subject}>{contact.contact_subject}</div>
-            <div style={styles.message}>
-              {contact.contact_message.length > 200
-                ? `${contact.contact_message.substring(0, 200)}...`
-                : contact.contact_message}
+        filteredRecords.map((record) => (
+          <div key={record.id} style={styles.card}>
+            <div style={styles.name}>{record.name}</div>
+            <div style={styles.email}>{record.email}</div>
+            <div style={styles.amount}>
+              {formatCurrency(record.amount, record.currency)}
             </div>
-            {contact.contact_message.length > 200 && (
-              <button
-                style={styles.viewButton}
-                onClick={() =>
-                  setSelectedMessage({
-                    email: contact.contact_email,
-                    message: contact.contact_message,
-                  })
-                }
-              >
-                View Full Message
-              </button>
-            )}
+            <div style={styles.details}>
+              <span style={styles.detailItem}>
+                <strong>Phone:</strong> {record.phone || "Not provided"}
+              </span>
+              <span style={styles.detailItem}>
+                <strong>Date:</strong>{" "}
+                {new Date(record.date_given).toLocaleDateString()}
+              </span>
+            </div>
+            <div style={styles.purpose}>
+              <strong>Purpose:</strong> {record.purpose || "General giving"}
+            </div>
           </div>
         ))
       )}
 
-      {/* Modal */}
-      {selectedMessage && (
+      {/* Modal - Not currently used but kept for consistency */}
+      {selectedRecord && (
         <div style={styles.modalBackdrop}>
           <div style={styles.modalContent}>
             <div style={styles.modalHeader}>
-              <h3 style={styles.modalTitle}>Full Message</h3>
+              <h3 style={styles.modalTitle}>Giving Details</h3>
               <button
-                onClick={() => setSelectedMessage(null)}
+                onClick={() => setSelectedRecord(null)}
                 style={styles.closeButton}
                 aria-label="Close modal"
               >
@@ -202,9 +219,9 @@ const Contacts = () => {
                 marginBottom: "15px",
               }}
             >
-              From: {selectedMessage.email}
+              From: {selectedRecord.email}
             </p>
-            <div style={styles.message}>{selectedMessage.message}</div>
+            <div style={styles.message}>{selectedRecord.message}</div>
           </div>
         </div>
       )}
@@ -212,4 +229,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default GivingRecords;

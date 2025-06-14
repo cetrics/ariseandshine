@@ -1,0 +1,493 @@
+{% extends "index.html" %} {% block content %}
+<section
+  class="hero-wrap hero-wrap-2 position-relative"
+  style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url('../static/images/image_22.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  "
+>
+  <!-- Optional: subtle blur to clean up image quality -->
+  <div
+    style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(2px);
+      z-index: 0;
+    "
+  ></div>
+
+  <div class="container position-relative" style="z-index: 1">
+    <div
+      class="row no-gutters slider-text align-items-center justify-content-center"
+    >
+      <div class="col-md-9 ftco-animate text-center text-white">
+        <h1 class="mb-2 bread">Giving</h1>
+        <p class="breadcrumbs">
+          <span class="mr-2">
+            <a href="index.html" class="text-white">
+              Home <i class="ion-ios-arrow-forward"></i>
+            </a>
+          </span>
+          <span class="text-white">
+            Contact <i class="ion-ios-arrow-forward"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Giving Form Section -->
+<div class="give-content-wrapper">
+  <!-- Background Image -->
+  <div class="give-bg-image"></div>
+
+  <!-- Content Section -->
+  <section class="give-section">
+    <div class="container">
+      <h1><i class="fas fa-hand-holding-heart"></i> Giving Details</h1>
+
+      <div class="give-form-container">
+        <form class="give-form" action="/submit-giving" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div
+            id="form-message"
+            style="
+              display: none;
+              margin-bottom: 20px;
+              padding: 10px;
+              border-radius: 4px;
+            "
+          ></div>
+
+          <div class="form-group">
+            <label>Name (Optional)</label>
+            <input type="text" name="name" placeholder="Your Name" />
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="e.g. james@gmail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number (Optional)</label>
+            <input type="tel" name="phone" placeholder="e.g. 07231235678" />
+          </div>
+
+          <div class="form-group">
+            <label>Currency</label>
+            <select name="currency">
+              <option value="KES">Kenyan Shillings</option>
+              <option value="USD">US Dollars</option>
+              <option value="EUR">Euros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Amount</label>
+            <input type="number" name="amount" placeholder="Amount" required />
+          </div>
+
+          <div class="form-group">
+            <label>The Purpose</label>
+            <select name="purpose">
+              <option value="Offering">Offering</option>
+              <option value="Tithe">Tithe</option>
+              <option value="Building Fund">Building Fund</option>
+              <option value="Missions">Missions</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+
+        <div class="payment-methods">
+          <div class="payment-method">
+            <h3><i class="fas fa-mobile-alt"></i> Mpesa</h3>
+            <p>Paybill: 400200</p>
+            <p>Acc Number: 846200</p>
+            <p>Acc Name: Arise and Shine CBO</p>
+          </div>
+
+          <div class="payment-method">
+            <h3><i class="fas fa-university"></i> Pesa Link</h3>
+            <p>Bank: Cooperative Bank of Kenya</p>
+            <p>Acc Number: 01100722580001</p>
+            <p>Name: Arise and Shine CBO</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* Main Wrapper */
+  .give-content-wrapper {
+    position: relative;
+    background: white;
+    padding-bottom: 40px;
+  }
+
+  /* Background Image */
+  /*.give-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../static/images/image_22.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    z-index: 0;
+  }
+*/
+  /* Content Section */
+  .give-section {
+    padding: 100px 30px 40px 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    color: #333;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.92);
+  }
+
+  .give-section h1 {
+    font-size: 2.5rem;
+    color: #000;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .give-section h1 i {
+    margin-right: 15px;
+    color: #2f496a;
+  }
+
+  .give-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  /* Form Styles */
+  .give-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2f496a;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #2f496a;
+    outline: none;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #0000ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .submit-btn:hover {
+    background-color: #1d324d;
+  }
+
+  /* Payment Methods */
+  .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .payment-method {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .payment-method h3 {
+    font-size: 1.3rem;
+    color: #2f496a;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #daeefb;
+    padding-bottom: 8px;
+  }
+
+  .payment-method h3 i {
+    margin-right: 12px;
+    color: #2f496a;
+  }
+
+  .payment-method p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .payment-method strong {
+    color: #000;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .give-form-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .give-section {
+      padding: 80px 20px 30px 20px;
+    }
+
+    .give-section h1 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .give-section {
+      padding: 70px 15px 25px 15px;
+    }
+
+    .give-section h1 {
+      font-size: 1.8rem;
+    }
+
+    .give-form,
+    .payment-method {
+      padding: 20px;
+    }
+  }
+
+  .header-gap {
+    height: 100px;
+  }
+
+  /* Message Container */
+  .message-container {
+    display: none;
+    margin-bottom: 25px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .message-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .message-icon {
+    font-size: 20px;
+  }
+
+  /* Success Message */
+  .message-container.success {
+    background-color: #f0fdf4;
+    border-left: 4px solid #10b981;
+    color: #065f46;
+  }
+
+  .message-container.success .message-icon {
+    color: #10b981;
+  }
+
+  /* Error Message */
+  .message-container.danger {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+  }
+
+  .message-container.danger .message-icon {
+    color: #ef4444;
+  }
+
+  /* Submit Button State */
+  .submit-btn.submitting {
+    position: relative;
+    color: transparent !important;
+  }
+
+  .submit-btn.submitting::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const giveForm = document.querySelector(".give-form");
+    const submitBtn = giveForm.querySelector(".submit-btn");
+    const messageDiv = document.getElementById("form-message");
+
+    // Create message content structure
+    const messageContent = document.createElement("div");
+    messageContent.className = "message-content";
+
+    const messageIcon = document.createElement("span");
+    messageIcon.className = "message-icon";
+
+    const messageText = document.createElement("span");
+    messageText.className = "message-text";
+
+    messageContent.appendChild(messageIcon);
+    messageContent.appendChild(messageText);
+    messageDiv.appendChild(messageContent);
+
+    giveForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Get form data
+      const formData = new FormData(giveForm);
+
+      // Validate required fields
+      if (!formData.get("email") || !formData.get("amount")) {
+        showMessage("Email and amount are required.", "danger");
+        return;
+      }
+
+      // Validate amount is a positive number
+      const amount = parseFloat(formData.get("amount"));
+      if (isNaN(amount) || amount <= 0) {
+        showMessage("Please enter a valid amount", "danger");
+        return;
+      }
+
+      // Disable button to prevent multiple submissions
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+      submitBtn.classList.add("submitting");
+
+      try {
+        const response = await fetch(giveForm.action, {
+          method: giveForm.method,
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+          showMessage(
+            result.message ||
+              "Thank you for your generosity! Your giving has been recorded.",
+            "success"
+          );
+          giveForm.reset();
+        } else {
+          showMessage(
+            result.message ||
+              "An error occurred while processing your submission.",
+            "danger"
+          );
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        showMessage(
+          "We encountered an issue while processing your request. Please try again later.",
+          "danger"
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
+        submitBtn.classList.remove("submitting");
+      }
+    });
+
+    function showMessage(message, type) {
+      // Set message content
+      messageText.textContent = message;
+
+      // Set styling based on type
+      messageDiv.className = `message-container ${type}`;
+      messageDiv.style.display = "block";
+
+      // Set icon based on type
+      if (type === "success") {
+        messageIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+      } else {
+        messageIcon.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+      }
+
+      // Hide message after 5 seconds with fade out
+      setTimeout(() => {
+        messageDiv.style.opacity = "0";
+        setTimeout(() => {
+          messageDiv.style.display = "none";
+          messageDiv.style.opacity = "1";
+        }, 300);
+      }, 5000);
+    }
+  });
+</script>
+
+{% endblock %}
